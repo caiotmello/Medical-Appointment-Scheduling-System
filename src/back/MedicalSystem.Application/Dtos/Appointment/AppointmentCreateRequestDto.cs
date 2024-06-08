@@ -17,6 +17,6 @@ namespace MedicalSystem.Application.Dtos.Appointment
         public DateTime Date { get; set; }
 
         [DataType(DataType.Time)]
-        public DateTime Time { get; set; }
+        public TimeSpan Time { get; set; }
     }
 }

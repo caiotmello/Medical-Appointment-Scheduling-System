@@ -3,8 +3,6 @@ using MedicalSystem.Domain.Entities;
 using MedicalSystem.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using System.Numerics;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace MedicalSystem.Infrastructure.Repositories
 {

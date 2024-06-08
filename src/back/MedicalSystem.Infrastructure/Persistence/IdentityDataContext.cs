@@ -10,6 +10,9 @@ namespace MedicalSystem.Infrastructure.Persistence
         public DbSet<Patient> patients;
         public DbSet<Doctor> doctors;
 
+        public IdentityDataContext()
+        {
+        }
         public IdentityDataContext(DbContextOptions<IdentityDataContext> options)
         : base(options)
         {

@@ -9,7 +9,7 @@ namespace MedicalSystem.Application.Dtos.Appointment
         public ApplicationUser Patient { get; set; }
         public ApplicationUser Doctor { get; set; }
         public DateTime Date { get; set; }
-        public DateTime Time { get; set; }
+        public TimeSpan Time { get; set; }
         public AppoitmentStatusEnum Status { get; set; }
     }
 }

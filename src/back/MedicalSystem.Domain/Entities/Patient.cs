@@ -1,8 +1,13 @@
-﻿namespace MedicalSystem.Domain.Entities
+﻿using MedicalSystem.Domain.Validations;
+using System.ComponentModel.DataAnnotations;
+
+namespace MedicalSystem.Domain.Entities
 {
     public class Patient : ApplicationUser
     {
-        public string? CPF {  get; set; }
+        [Required]
+        [CPF]
+        public string CPF {  get; set; }
         public DateTime? BirthDate { get; set; }
     }
 }

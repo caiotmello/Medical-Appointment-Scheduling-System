@@ -117,38 +117,46 @@ namespace MedicalSystem.Application.Services
 
         public async Task<UserTokenResponseDto> RefreshToken(UserTokenRequestDto model)
         {
-            var accessToken = model.AccessToken;
-            var refreshToken = model.RefreshToken;
-
-            var principal = GetPrincipalFromExpiredToken(accessToken);
-            if (principal is null)
-                throw new InvalidUserException();
-
-            var username = principal.Identity?.Name;
-            if (username is null)
-                throw new InvalidUserException();
-
-            var user = await _userManager.FindByNameAsync(username);
-
-            if (user is null ||
-                user.RefreshToken != refreshToken ||
-                user.RefreshTokenExpiryTime <= DateTime.Now)
+            try
             {
-                throw new InvalidCredentialException();
+                var accessToken = model.AccessToken;
+                var refreshToken = model.RefreshToken;
+
+                var principal = GetPrincipalFromExpiredToken(accessToken);
+                if (principal is null)
+                    throw new InvalidUserException();
+
+                var username = principal.Identity?.Name;
+                if (username is null)
+                    throw new InvalidUserException();
+
+                var user = await _userManager.FindByNameAsync(username);
+
+                if (user is null ||
+                    user.RefreshToken != refreshToken ||
+                    user.RefreshTokenExpiryTime <= DateTime.Now)
+                {
+                    throw new InvalidCredentialException();
+                }
+
+                var newAccessToken = CreateToken(principal.Claims.ToList());
+                var newRefreshToken = GenerateRefreshToken();
+                user.RefreshToken = newRefreshToken;
+                await _userManager.UpdateAsync(user);
+
+                return new UserTokenResponseDto
+                {
+                    Token = new JwtSecurityTokenHandler()
+                        .WriteToken(newAccessToken),
+                    RefreshToken = newRefreshToken,
+                    Expiration = newAccessToken.ValidTo
+                };
+
             }
-
-            var newAccessToken = CreateToken(principal.Claims.ToList());
-            var newRefreshToken = GenerateRefreshToken();
-            user.RefreshToken = newRefreshToken;
-            await _userManager.UpdateAsync(user);
-
-            return new UserTokenResponseDto
+            catch(Exception ex)
             {
-                Token = new JwtSecurityTokenHandler()
-                    .WriteToken(newAccessToken),
-                RefreshToken = newRefreshToken,
-                Expiration = newAccessToken.ValidTo
-            }; 
+                throw;
+            }
         }
     }
 }

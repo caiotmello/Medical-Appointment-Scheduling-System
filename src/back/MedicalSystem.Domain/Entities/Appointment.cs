@@ -1,29 +1,45 @@
 ﻿
 using MedicalSystem.Domain.Enumerations;
+using MedicalSystem.Domain.Validations;
 using System.ComponentModel.DataAnnotations;
-using System.Numerics;
 
 namespace MedicalSystem.Domain.Entities
 {
     public class Appointment : EntityBase
     {
-        //public int PatientId { get; set; }
-        //public Patient Patient { get; set; }
-        //public int DoctorId { get; set; }
-        //public Doctor Doctor { get; set; }
         [Required]
         public string PatientId { get; set; }
 
         [Required]
         public string DoctorId { get; set; }
 
-        [Required]
+        [RequiredDateTime]
         public DateTime Date { get; set; }
 
-        [Required]
-        public DateTime Time { get; set; }
+        [RequiredTime]
+        public TimeSpan Time { get; set; }
 
         public AppoitmentStatusEnum Status { get; set; }
+
+        //public Appointment(string patientId, string doctorId, DateTime date, DateTime time, AppoitmentStatusEnum status)
+        //{
+        //    PatientId = patientId;
+        //    DoctorId = doctorId;
+        //    Date = date;
+        //    Time = time;
+        //    Status = status;
+        //}
+
+        //public void ValidateEntity()
+        //{
+        //    AssertionConcern.AssertArgumentNotEmpty(PatientId, "PatientId must be informed!");
+        //    AssertionConcern.AssertArgumentNotEmpty(DoctorId , "DoctorId must be informed!");
+
+        //    AssertionConcern.AssertArgumentNotNull(Date, "Date must be informed!");
+        //    AssertionConcern.AssertArgumentNotNull(Time, "Time must be informed!");
+        //}
+
+
     }
 }
 

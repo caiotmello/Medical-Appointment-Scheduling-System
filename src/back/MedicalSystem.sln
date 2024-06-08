@@ -7,9 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MedicalSystem.Api", "Medica
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MedicalSystem.Application", "MedicalSystem.Application\MedicalSystem.Application.csproj", "{D64C178D-544A-4A8F-95FF-B9233C368633}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MedicalSystem.Infrastructure", "MedicalSystem.Infrastructure\MedicalSystem.Infrastructure.csproj", "{15B1295C-374B-4DD6-9BED-F9485509ADA8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MedicalSystem.Infrastructure", "MedicalSystem.Infrastructure\MedicalSystem.Infrastructure.csproj", "{15B1295C-374B-4DD6-9BED-F9485509ADA8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MedicalSystem.Domain", "MedicalSystem.Domain\MedicalSystem.Domain.csproj", "{F4998275-83B2-430A-AA1C-CCBC92C8C4E1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MedicalSystem.Domain", "MedicalSystem.Domain\MedicalSystem.Domain.csproj", "{F4998275-83B2-430A-AA1C-CCBC92C8C4E1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MedicalSystem.Test", "MedicalSystem.Test\MedicalSystem.Test.csproj", "{7DD607AD-36F8-4F8B-8281-E7285D7B339A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{F4998275-83B2-430A-AA1C-CCBC92C8C4E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F4998275-83B2-430A-AA1C-CCBC92C8C4E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F4998275-83B2-430A-AA1C-CCBC92C8C4E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7DD607AD-36F8-4F8B-8281-E7285D7B339A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DD607AD-36F8-4F8B-8281-E7285D7B339A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7DD607AD-36F8-4F8B-8281-E7285D7B339A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7DD607AD-36F8-4F8B-8281-E7285D7B339A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
