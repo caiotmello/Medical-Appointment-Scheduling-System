@@ -177,7 +177,6 @@ namespace MedicalSystem.Application.Services
             {
                 var appointments = await _appointmentRepository.GetAppointmentByDateAsync(date);
                 var appointmentsDtos = new List<AppointmentWithEmailResponseDto>();
-
                 foreach (var appointment in appointments)
                 {
                     var patient = await _userManager.FindByIdAsync(appointment.PatientId);

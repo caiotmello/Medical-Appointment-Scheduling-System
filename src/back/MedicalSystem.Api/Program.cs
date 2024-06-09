@@ -67,13 +67,22 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-//Add migration
+//Add migration for identity
 app.MigrateDatabase<IdentityDataContext>((context, services) =>
 {
     var logger = services.GetService<ILogger<IdentityDataContextSeed>>();
     var userservice = services.GetService<IUserService>();
     IdentityDataContextSeed
         .SeedAsync(context, logger, userservice)
+        .Wait();
+});
+
+//Add migration for AppDbContext
+app.MigrateDatabase<AppDbContext>((context, services) =>
+{
+    var logger = services.GetService<ILogger<AppDbContextSeed>>();
+    AppDbContextSeed
+        .SeedAsync(context, logger)
         .Wait();
 });
 

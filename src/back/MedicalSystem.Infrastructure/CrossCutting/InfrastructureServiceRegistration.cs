@@ -19,11 +19,18 @@ namespace MedicalSystem.Infrastructure.CrossCutting
     {
         public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
         {
-            var sqlServer = configuration.GetSection("SqlConnection:Host").Value ?? string.Empty;
-            var sqlPort = configuration.GetSection("SqlConnection:Port").Value ?? string.Empty;
-            var sqlUser = configuration.GetSection("SqlConnection:User").Value ?? string.Empty;
-            var sqlPassword = configuration.GetSection("SqlConnection:Password").Value ?? string.Empty;
-            var sqlDatabase = configuration.GetSection("SqlConnection:DbName").Value ?? string.Empty;
+            //var sqlServer = configuration.GetSection("SqlConnection:Host").Value ?? string.Empty;
+            //var sqlPort = configuration.GetSection("SqlConnection:Port").Value ?? string.Empty;
+            //var sqlUser = configuration.GetSection("SqlConnection:User").Value ?? string.Empty;
+            //var sqlPassword = configuration.GetSection("SqlConnection:Password").Value ?? string.Empty;
+            //var sqlDatabase = configuration.GetSection("SqlConnection:DbName").Value ?? string.Empty;
+
+            var sqlServer = Environment.GetEnvironmentVariable("DB_HOST") ?? string.Empty;
+            var sqlPort = Environment.GetEnvironmentVariable("DB_PORT") ?? string.Empty;
+            var sqlUser = Environment.GetEnvironmentVariable("DB_USER") ?? string.Empty;
+            var sqlPassword = Environment.GetEnvironmentVariable("DB_PASSWORD") ?? string.Empty;
+            var sqlDatabase = Environment.GetEnvironmentVariable("DB_NAME") ?? string.Empty;
+
 
             var sqlConnectionString = $"Server={sqlServer};Database={sqlDatabase};TrustServerCertificate=True; User={sqlUser};Password={sqlPassword};";
 
@@ -36,10 +43,6 @@ namespace MedicalSystem.Infrastructure.CrossCutting
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<IdentityDataContext>()
                 .AddDefaultTokenProviders();
-
-            //services.AddIdentity<ApplicationUser, IdentityRole>()
-            //    .AddEntityFrameworkStores<IdentityDataContext>()
-            //    .AddDefaultTokenProviders();
 
             services.AddIdentityCore<Doctor>().AddEntityFrameworkStores<IdentityDataContext>();
             services.AddIdentityCore<Patient>().AddEntityFrameworkStores<IdentityDataContext>();

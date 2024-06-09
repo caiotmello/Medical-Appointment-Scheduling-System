@@ -9,17 +9,17 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["MedicalSystem/MedicalSystem.csproj", "MedicalSystem/"]
-RUN dotnet restore "./MedicalSystem/MedicalSystem.csproj"
+COPY ["MedicalSystem.Api/MedicalSystem.Api.csproj", "MedicalSystem.Api/"]
+RUN dotnet restore "./MedicalSystem.Api/MedicalSystem.Api.csproj"
 COPY . .
-WORKDIR "/src/MedicalSystem"
-RUN dotnet build "./MedicalSystem.csproj" -c $BUILD_CONFIGURATION -o /app/build
+WORKDIR "/src/MedicalSystem.Api"
+RUN dotnet build "./MedicalSystem.Api.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./MedicalSystem.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./MedicalSystem.Api.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "MedicalSystem.dll"]
+ENTRYPOINT ["dotnet", "MedicalSystem.Api.dll"]
