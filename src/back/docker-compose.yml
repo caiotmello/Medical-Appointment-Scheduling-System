@@ -19,7 +19,7 @@ services:
       - backend      
 
   medicalsystem.api:
-    image: ${DOCKER_REGISTRY-}medicalsystemapi
+    image: caiotmello/medicalsystemapi
     build:
       context: .
       dockerfile: MedicalSystem.Api/Dockerfile
