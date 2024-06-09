@@ -11,7 +11,7 @@ services:
     volumes:
       - sqlserver-data:/var/opt/mssql/data
     environment:
-      - MSSQL_SA_PASSWORD=$SQLSERVERDB_PASSWORD
+      - MSSQL_SA_PASSWORD=1qaz!QAZ
       - ACCEPT_EULA=Y
     expose:
       - '1433'
