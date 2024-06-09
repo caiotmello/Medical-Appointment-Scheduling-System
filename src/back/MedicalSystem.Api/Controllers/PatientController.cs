@@ -1,9 +1,11 @@
 ﻿using MedicalSystem.Application.Dtos.Patient;
 using MedicalSystem.Application.Interfaces.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 namespace MedicalSystem.Api.Controllers
 {
     [ApiController]
+    [Authorize]
     [Route("api/v1/patients")]
     public class PatientController : ControllerBase
     {

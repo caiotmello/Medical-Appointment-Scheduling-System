@@ -1,11 +1,13 @@
 ﻿using MedicalSystem.Application.Dtos.Doctor;
 using MedicalSystem.Application.Interfaces.Services;
 using MedicalSystem.Domain.Enumerations;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MedicalSystem.Api.Controllers
 {
     [ApiController]
+    [Authorize]
     [Route("api/v1/doctors")]
     public class DoctorController : ControllerBase
     {
@@ -51,7 +53,7 @@ namespace MedicalSystem.Api.Controllers
 
         [HttpGet]
         [Route("getbySpeciality/{speciality}")]
-        public async Task<ActionResult<DoctorResponceDto>> GetBySpeciality(SpecialityEnum speciality)
+        public async Task<ActionResult<IList<DoctorResponceDto>>> GetBySpeciality(SpecialityEnum speciality)
         {
             try
             {
