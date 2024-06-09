@@ -51,7 +51,7 @@ jobs:
      # Deploy application to Azure Web App
       - name: Deploy Docker Compose to Azure Web App
         run: |
-          az webapp config container set --resource-group ${{ env.RESOURCE_GROUP }} --name medicalsystemfiap --multicontainer-config-type compose --multicontainer-config-file ./src/back/docker-compose.yml
+          az webapp config container set --resource-group ${{ env.RESOURCE_GROUP }} --name medicalsystemfiap --multicontainer-config-type compose --multicontainer-config-file ./src/back/docker-compose.yml --docker-registry-server-user ${{ secrets.DOCKERHUB_USERNAME }} --docker-registry-server-password ${{ secrets.DOCKERHUB_PASSWORD }} 
         env:
           AZURE_WEBAPP_NAME: 'medicalsystemfiap'
           AZURE_RESOURCE_GROUP: ${{ env.RESOURCE_GROUP }}
