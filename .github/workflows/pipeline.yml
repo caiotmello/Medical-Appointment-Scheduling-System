@@ -6,8 +6,7 @@ on:
   workflow_dispatch:
 
 env:
-  CLUSTER_NAME: "techchallenge05"
-  RESOURCE_GROUP: "rg_techchallenge05"
+  RESOURCE_GROUP: "rg_medicalsystem"
   
 jobs:
   build:
@@ -34,3 +33,26 @@ jobs:
           tags: |
            ${{ secrets.DOCKERHUB_USERNAME }}/medicalsystemapi:v${{ github.run_number }}
            ${{ secrets.DOCKERHUB_USERNAME }}/medicalsystemapi:latest
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      # Checks out the repository this file is in
+      - uses: actions/checkout@v3
+     
+     # Logs in with your Azure credentials
+      - uses: actions/checkout@v3
+      - name: Login to Azure
+        uses: azure/login@v1.4.6
+        with:
+            creds: ${{ secrets.AZURE_CREDENTIALS }}
+            
+     # Deploy application to Azure Web App
+      - name: Deploy Docker Compose to Azure Web App
+        run: |
+          az webapp config container set --resource-group ${{ env.RESOURCE_GROUP }} --name medicalsystemfiap --multicontainer-config-type compose --multicontainer-config-file ./src/back/docker-compose.yml --docker-registry-server-user ${{ secrets.DOCKERHUB_USERNAME }} --docker-registry-server-password ${{ secrets.DOCKERHUB_PASSWORD }} 
+        env:
+          AZURE_WEBAPP_NAME: 'medicalsystemfiap'
+          AZURE_RESOURCE_GROUP: ${{ env.RESOURCE_GROUP }}
+          AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
