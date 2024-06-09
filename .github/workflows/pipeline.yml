@@ -20,7 +20,7 @@ jobs:
 
        # Execute all unit tests in the solution
       - name: Execute unit tests
-        run: dotnet test ./src/MedicalSystem.Test.csproj
+        run: dotnet test ./src/back/MedicalSystem.Test.csproj
 
       - name: Login to Docker Hub
         run: echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
@@ -28,8 +28,8 @@ jobs:
       - name: MedicalSystem Api - Build and push Docker images
         uses: docker/build-push-action@v4.1.1
         with:
-          context: ./src
-          file: ./src/MedicalSystem.Api/Dockerfile
+          context: ./src/back
+          file: ./src/back/MedicalSystem.Api/Dockerfile
           push: true
           tags: |
            ${{ secrets.DOCKERHUB_USERNAME }}/medicalsystemapi:v${{ github.run_number }}
