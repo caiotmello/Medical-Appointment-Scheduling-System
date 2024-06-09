@@ -8,8 +8,6 @@ services:
     env_file: ./.env
     ports:
       - 1433:1433
-    volumes:
-      - sqlserver-data:/var/opt/mssql/data
     environment:
       - MSSQL_SA_PASSWORD=1qaz!QAZ
       - ACCEPT_EULA=Y
@@ -41,5 +39,3 @@ services:
 networks:
   backend:
     driver: 'bridge'
-volumes:
-  sqlserver-data:
