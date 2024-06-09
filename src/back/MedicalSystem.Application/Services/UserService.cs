@@ -50,6 +50,12 @@ namespace MedicalSystem.Application.Services
                     throw new Exception($"{nameof(CreateUserAsync)} registration invalid!. User details: {model.Email}");
                 }
 
+                if (!await _roleManager.RoleExistsAsync(UserRoles.Patient))
+                    await _roleManager.CreateAsync(new IdentityRole(UserRoles.Patient));
+
+                if (await _roleManager.RoleExistsAsync(UserRoles.Patient))
+                    await _userManager.AddToRoleAsync(patientUser, UserRoles.Patient);
+
                 return;
             }
 
@@ -71,6 +77,13 @@ namespace MedicalSystem.Application.Services
                     _logger.LogError($"{nameof(CreateUserAsync)} registration invalid!. User details: {model.Email}");
                     throw new Exception($"{nameof(CreateUserAsync)} registration invalid!. User details: {model.Email}");
                 }
+
+                if (!await _roleManager.RoleExistsAsync(UserRoles.Doctor))
+                    await _roleManager.CreateAsync(new IdentityRole(UserRoles.Doctor));
+
+                if (await _roleManager.RoleExistsAsync(UserRoles.Doctor))
+                    await _userManager.AddToRoleAsync(doctorUser, UserRoles.Doctor);
+
 
                 return;
             }
@@ -128,7 +141,7 @@ namespace MedicalSystem.Application.Services
             if (await _roleManager.RoleExistsAsync(UserRoles.Admin))
                 await _userManager.AddToRoleAsync(user, UserRoles.Admin);
 
-            if (await _roleManager.RoleExistsAsync(UserRoles.Admin))
+            if (await _roleManager.RoleExistsAsync(UserRoles.Doctor))
                 await _userManager.AddToRoleAsync(user, UserRoles.Doctor);
 
             if (await _roleManager.RoleExistsAsync(UserRoles.Patient))
